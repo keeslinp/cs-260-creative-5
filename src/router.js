@@ -4,7 +4,7 @@ import Login from './views/Login.vue'
 import Home from './views/Home.vue'
 import Register from './views/Register.vue'
 import MyPage from './views/MyPage.vue'
-import Photo from './views/Photo.vue'
+import Pokemon from './views/Pokemon.vue'
 
 Vue.use(Router)
 
@@ -45,7 +45,7 @@ export default new Router({
     {
       path: '/photo/:id',
       name: 'photo',
-      component: Photo,
+      component: Pokemon,
     },
   ]
 })

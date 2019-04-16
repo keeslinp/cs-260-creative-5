@@ -7,72 +7,68 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     user: null,
-    photos: [],
+    pokemon: [],
     comments: [],
+    allPokemon: [],
   },
 
   mutations: {
     setUser(state, user) {
       state.user = user;
     },
-    setPhotos(state, photos) {
-      state.photos = photos;
+    setPokemon(state, pokemon) {
+      state.pokemon = pokemon;
     },
     setComments(state, comments) {
       state.comments = comments;
     },
+    setAllPokemon(state, allPokemon) {
+      state.allPokemon = allPokemon;
+    },
   },
   actions: {
-    async upload(context, data) {
+    async submit(context, data) {
       try {
-        await axios.post('/api/photos', data);
+        await axios.post('/api/pokemon', data);
         return "";
       } catch (error) {
         return error.response.data.message;
       }
     },
-    async getAllPhotos(context) {
+    async getAllPokemon(context) {
       try {
-        let response = await axios.get("/api/photos/all");
-        context.commit('setPhotos', response.data);
+        let response = await axios.get("https://pokeapi.co/api/v2/pokemon/?limit=100");
+        context.commit('setAllPokemon', response.data.results);
         return "";
       } catch (error) {
         return "";
       }
     },
-    async getMyPhotos(context) {
+    async getPokemonCounts(context) {
       try {
-        let response = await axios.get("/api/photos");
-        context.commit('setPhotos', response.data);
+        let response = await axios.get("/api/pokemon/counts");
+        context.commit('setPokemon', response.data);
         return "";
       } catch (error) {
         return "";
       }
     },
-    async getAPhoto(context, photoId) {
+    async getMyPokemon(context) {
       try {
-        const response = await axios.get(`/api/photos/${photoId}`);
-        context.commit('setPhotos', response.data);
+        let response = await axios.get("/api/pokemon");
+        context.commit('setPokemon', response.data);
         return "";
       } catch (error) {
         return "";
       }
     },
-    async getComments(context, photoId) {
+    async getAPokemon(context, pokeId) {
       try {
-        const response = await axios.get(`/api/comments/${photoId}`);
-        context.commit('setComments', response.data);
+        const response = await axios.get(`/api/pokemon/${pokeId}`);
+        context.commit('setPokemon', response.data);
         return "";
       } catch (error) {
         return "";
-      }
-    },
-    async makeComment(context, data) {
-      try {
-        await axios.post('/api/comments', data);
-        return "";
-      } catch (error) {
-        return error.response.data.message;
       }
     },
     async register(context, data) {

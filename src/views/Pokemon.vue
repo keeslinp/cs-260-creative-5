@@ -1,6 +1,6 @@
 <template>
 <div>
-    <image-gallery :photos="photos" />
+    <pokemon-gallery :photos="photos" />
     <comments :comments="comments" />
     <form v-if="user" @submit.prevent="submitComment" class="pure-form pure-form-aligned create-comment">
       <fieldset>
@@ -19,13 +19,13 @@
 
 
 <script>
-import ImageGallery from '@/components/ImageGallery.vue'
+import PokemonGallery from '@/components/PokemonGallery.vue'
 import Comments from '@/components/Comments.vue'
 
 export default {
   name: 'photo',
   components: {
-    ImageGallery,
+    PokemonGallery,
     Comments,
   },
   data() {

@@ -54,6 +54,22 @@ router.get("/", auth.verifyToken, User.verify, async (req, res) => {
   }
 });
 
+router.get("/poke/:pokeId", auth.verifyToken, User.verify, async (req, res) => {
+  try {
+    let pokemon = await Pokemon.find({
+      user: req.user,
+      pokeId: req.params.pokeId,
+    });
+    if (!pokemon) {
+      return res.sendStatus(404);
+    }
+    return res.send(pokemon);
+  } catch(err) {
+    console.log(err);
+    return res.sendStatus(500);
+  }
+});
+
 // Get a count of how many times each pokemon has been caught
 router.get("/counts", async (req, res) => {
   try {
@@ -66,7 +82,7 @@ router.get("/counts", async (req, res) => {
       }
       return acc;
     }, {});
-    return res.send(pokeCounts);
+    return res.send(Object.keys(pokeCounts).map(key => ({ pokeId: parseInt(key, 10), count: pokeCounts[key] })) );
   } catch (error) {
     console.log(error);
     return res.sendStatus(500);
