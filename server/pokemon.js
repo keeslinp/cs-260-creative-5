@@ -53,6 +53,20 @@ router.get("/", auth.verifyToken, User.verify, async (req, res) => {
     return res.sendStatus(500);
   }
 });
+// Delete pokemon record
+router.delete("/:id", auth.verifyToken, User.verify, async (req, res) => {
+  // return pokemons
+  try {
+    let pokemons = await Pokemon.deleteOne({
+      user: req.user,
+      _id: req.params.id,
+    });
+    return res.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(500);
+  }
+});
 
 router.get("/poke/:pokeId", auth.verifyToken, User.verify, async (req, res) => {
   try {
@@ -89,15 +103,17 @@ router.get("/counts", async (req, res) => {
   }
 });
 
-router.put("/:pokeId", async (req, res) => {
+router.put("/:id", auth.verifyToken, User.verify, async (req, res) => {
   try {
     let pokemon = await Pokemon.findOne({
-      pokeId: req.params.pokeId,
+      _id: req.params.id,
       user: req.user,
-      }).sort({
-      created: -1
-    }).populate('user');
+      });
+    if (!pokemon) {
+      return res.sendStatus(404);
+    }
     pokemon.description = req.body.description;
+    pokemon.save();
     return res.send(pokemon);
   } catch (error) {
     console.log(error);

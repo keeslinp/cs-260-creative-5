@@ -15,7 +15,7 @@
     <div>
       <form @submit.prevent="submit">
         <select v-model="selectedPokemon">
-          <option v-for="(pokemon, index) in allPokemon" :value="index">{{pokemon.name}}</option :key="pokemon._id" />
+          <option v-for="(pokemon, index) in allPokemon" :value="index">{{pokemon.name}}</option v-bind:key="pokemon._id" />
         </select>
         <p></p>
         <textarea v-model="description" placeholder="Description"></textarea>

@@ -98,6 +98,14 @@ export default new Vuex.Store({
         return error.response.data.message;
       }
     },
+    async deleteRecord(context, id) {
+      try {
+        await axios.delete(`/api/pokemon/${id}`);
+        return "";
+      } catch (error) {
+        return error.response.data.message;
+      }
+    },
     async getUser(context) {
       try {
         let response = await axios.get("/api/users");
@@ -105,6 +113,14 @@ export default new Vuex.Store({
         return "";
       } catch (error) {
         return "";
+      }
+    },
+    async updateRecord(context, { id, ...rest }) {
+      try {
+        await axios.put(`/api/pokemon/${id}`, rest);
+        return "";
+      } catch( err) {
+        return err.response.data.message;
       }
     }
   }
