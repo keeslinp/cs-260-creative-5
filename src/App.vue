@@ -1,7 +1,7 @@
 <template>
 <div id="app">
   <div class="pure-menu">
-    <span class="pure-menu-heading">Photo Bomb</span>
+    <span class="pure-menu-heading">Shared Pokedex</span>
     <ul class="pure-menu-list">
       <li class="pure-menu-item">
         <router-link to="/" class="pure-menu-link">Home</router-link>
@@ -14,7 +14,7 @@
   <div class="content">
     <router-view />
   <div class="github-link">
-    Github link: https://github.com/BYU-CS-260-Winter-2019/lab-5-keeslinp
+    Github link: https://github.com/keeslinp/cs-260-creative-5
   </div>
   </div>
 </div>
